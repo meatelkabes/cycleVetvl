@@ -5,35 +5,38 @@
 ******************************************/
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 
-int main(){
+int main() {
 
-	const int container = 15;
-	const int pressure = 760;
+  int container = 15;
+  int pressure = 760;
+  double workingVolume, numberOfSwings, residualPressure;
+  int initialSwings = 10;
+  int firstThreshold = 50;
+  int firstStep = 10;
+  int secondThreshold = 250;
+  int secondStep = 50;
 
-	double workingVolume, numberOfSwings, residualPressure;
+  cout << "working Volume = ";
+  cin >> workingVolume;
 
-	cout << "working Volume = ";
-	cin >> workingVolume;
+  numberOfSwings = initialSwings;
 
-	cout << "number Of Swings = ";
-	cin >> numberOfSwings;
+  while (numberOfSwings <= firstThreshold) {
+      residualPressure = pressure * pow((container / (container + workingVolume)), numberOfSwings);
+      cout << numberOfSwings << "\t\t" << residualPressure << endl;
 
-	while (numberOfSwings < 50) {
-		residualPressure = pressure * pow((container / (container + workingVolume)), numberOfSwings);
-		cout << "residual Pressure = " << residualPressure << endl
-		     << "number Of Swings = " << numberOfSwings << endl;
-		numberOfSwings += 10;
-	} 
+      numberOfSwings += firstStep;
+  }
 
-	do {
-		residualPressure = pressure * pow((container / (container + workingVolume)), numberOfSwings);
-		cout << "residual Pressure = " << residualPressure << endl
-		     << "number Of Swings = " << numberOfSwings << endl;
-		numberOfSwings += 50;
-	} while (numberOfSwings < 260);
+  numberOfSwings = 100; 
+
+  do {
+      residualPressure = pressure * pow((container / (container + workingVolume)), numberOfSwings);
+      cout << numberOfSwings << "\t\t" << residualPressure << endl;
+      numberOfSwings += secondStep;
+  } while (numberOfSwings <= secondThreshold);
 }
-
